@@ -2,15 +2,7 @@
 
    ☢ STALKER — ЗОНА
 
-   3D WEB EDITION
-
-   CLEAN GAME.JS
-
-========================================================= */
-
-/* =========================================================
-
-   ПРОВЕРКА THREE.JS
+   3D FPS — версия с оружием
 
 ========================================================= */
 
@@ -18,67 +10,35 @@ if (typeof THREE === "undefined") {
 
     document.body.innerHTML = `
 
-        <div style="
+        <div style="color:white;background:#080b09;
 
-            color:#ddd;
+        width:100vw;height:100vh;display:flex;
 
-            background:#080b09;
+        align-items:center;justify-content:center;
 
-            width:100vw;
-
-            height:100vh;
-
-            display:flex;
-
-            align-items:center;
-
-            justify-content:center;
-
-            text-align:center;
-
-            font-family:Arial;
-
-            padding:30px;
-
-            box-sizing:border-box;
-
-        ">
+        font-family:Arial;text-align:center">
 
             <div>
 
-                <h2>☢ THREE.JS НЕ ЗАГРУЗИЛСЯ</h2>
+                <h2>☢ THREE.JS НЕ НАЙДЕН</h2>
 
-                <p>
-
-                    Проверь, что файл
-
-                    <b>three.min.js</b>
-
-                    находится рядом с
-
-                    <b>index.html</b>.
-
-                </p>
+                <p>Проверь файл three.min.js</p>
 
             </div>
 
-        </div>
+        </div>`;
 
-    `;
-
-    throw new Error("THREE.js не найден");
+    throw new Error("THREE.js not found");
 
 }
 
 /* =========================================================
 
-   ОСНОВА
+   СЦЕНА
 
 ========================================================= */
 
-const scene =
-
-    new THREE.Scene();
+const scene = new THREE.Scene();
 
 scene.background =
 
@@ -93,6 +53,12 @@ scene.fog =
         0.018
 
     );
+
+/* =========================================================
+
+   КАМЕРА
+
+========================================================= */
 
 const camera =
 
@@ -119,6 +85,12 @@ camera.position.set(
     8
 
 );
+
+/* =========================================================
+
+   RENDERER
+
+========================================================= */
 
 const renderer =
 
@@ -148,9 +120,7 @@ renderer.setPixelRatio(
 
 );
 
-renderer.shadowMap.enabled =
-
-    true;
+renderer.shadowMap.enabled = true;
 
 renderer.shadowMap.type =
 
@@ -176,7 +146,7 @@ const ambient =
 
         0x1c211d,
 
-        1.15
+        1.1
 
     );
 
@@ -186,17 +156,17 @@ scene.add(
 
 );
 
-const moonLight =
+const moon =
 
     new THREE.DirectionalLight(
 
-        0x8c9caa,
+        0x9aa8b0,
 
-        0.75
+        0.7
 
     );
 
-moonLight.position.set(
+moon.position.set(
 
     -30,
 
@@ -206,21 +176,11 @@ moonLight.position.set(
 
 );
 
-moonLight.castShadow =
-
-    true;
-
-moonLight.shadow.mapSize.width =
-
-    1024;
-
-moonLight.shadow.mapSize.height =
-
-    1024;
+moon.castShadow = true;
 
 scene.add(
 
-    moonLight
+    moon
 
 );
 
@@ -256,9 +216,7 @@ ground.rotation.x =
 
     -Math.PI / 2;
 
-ground.receiveShadow =
-
-    true;
+ground.receiveShadow = true;
 
 scene.add(
 
@@ -268,15 +226,11 @@ scene.add(
 
 /* =========================================================
 
-   СЛУЧАЙНЫЙ МАТЕРИАЛ
+   МАТЕРИАЛ
 
 ========================================================= */
 
-function material(
-
-    color
-
-) {
+function mat(color) {
 
     return new THREE.MeshStandardMaterial({
 
@@ -285,88 +239,6 @@ function material(
         roughness: 1
 
     });
-
-}
-
-/* =========================================================
-
-   КАМНИ
-
-========================================================= */
-
-function createRock(
-
-    x,
-
-    z,
-
-    scale = 1
-
-) {
-
-    const rock =
-
-        new THREE.Mesh(
-
-            new THREE.DodecahedronGeometry(
-
-                0.5,
-
-                0
-
-            ),
-
-            material(
-
-                0x46483f
-
-            )
-
-        );
-
-    rock.position.set(
-
-        x,
-
-        0.3 * scale,
-
-        z
-
-    );
-
-    rock.scale.set(
-
-        scale * 1.2,
-
-        scale * 0.7,
-
-        scale
-
-    );
-
-    rock.rotation.set(
-
-        Math.random(),
-
-        Math.random(),
-
-        Math.random()
-
-    );
-
-    rock.castShadow =
-
-        true;
-
-    rock.receiveShadow =
-
-        true;
-
-    scene.add(
-
-        rock
-
-    );
 
 }
 
@@ -406,11 +278,7 @@ function createTree(
 
             ),
 
-            material(
-
-                0x393128
-
-            )
+            mat(0x393128)
 
         );
 
@@ -418,9 +286,7 @@ function createTree(
 
         1.25;
 
-    trunk.castShadow =
-
-        true;
+    trunk.castShadow = true;
 
     tree.add(
 
@@ -442,11 +308,7 @@ function createTree(
 
             ),
 
-            material(
-
-                0x28352c
-
-            )
+            mat(0x28352c)
 
         );
 
@@ -454,9 +316,7 @@ function createTree(
 
         3.1;
 
-    leaves.castShadow =
-
-        true;
+    leaves.castShadow = true;
 
     tree.add(
 
@@ -478,21 +338,13 @@ function createTree(
 
             ),
 
-            material(
-
-                0x314034
-
-            )
+            mat(0x314034)
 
         );
 
     leaves2.position.y =
 
         4.5;
-
-    leaves2.castShadow =
-
-        true;
 
     tree.add(
 
@@ -516,12 +368,6 @@ function createTree(
 
     );
 
-    tree.rotation.y =
-
-        Math.random() *
-
-        Math.PI;
-
     scene.add(
 
         tree
@@ -540,7 +386,7 @@ for (
 
     let i = 0;
 
-    i < 100;
+    i < 110;
 
     i++
 
@@ -558,17 +404,9 @@ for (
 
         * 180;
 
-    /*
-
-       Не ставим деревья
-
-       прямо в лагере
-
-    */
-
     if (
 
-        Math.abs(x) < 22 &&
+        Math.abs(x) < 23 &&
 
         z > -70 &&
 
@@ -602,11 +440,75 @@ for (
 
 ========================================================= */
 
+function createRock(
+
+    x,
+
+    z,
+
+    scale
+
+) {
+
+    const rock =
+
+        new THREE.Mesh(
+
+            new THREE.DodecahedronGeometry(
+
+                0.5
+
+            ),
+
+            mat(0x46483f)
+
+        );
+
+    rock.position.set(
+
+        x,
+
+        0.3 * scale,
+
+        z
+
+    );
+
+    rock.scale.set(
+
+        scale * 1.2,
+
+        scale * 0.7,
+
+        scale
+
+    );
+
+    rock.rotation.set(
+
+        Math.random(),
+
+        Math.random(),
+
+        Math.random()
+
+    );
+
+    rock.castShadow = true;
+
+    scene.add(
+
+        rock
+
+    );
+
+}
+
 for (
 
     let i = 0;
 
-    i < 60;
+    i < 55;
 
     i++
 
@@ -614,19 +516,13 @@ for (
 
     createRock(
 
-        (Math.random() - 0.5)
+        (Math.random() - 0.5) * 150,
 
-        * 150,
-
-        -Math.random()
-
-        * 170,
+        -Math.random() * 170,
 
         0.3 +
 
-        Math.random() *
-
-        0.7
+        Math.random() * 0.7
 
     );
 
@@ -650,11 +546,7 @@ const road =
 
         ),
 
-        material(
-
-            0x4a493f
-
-        )
+        mat(0x4a493f)
 
     );
 
@@ -680,81 +572,15 @@ scene.add(
 
 /* =========================================================
 
-   ТРАВА
+   ЛАГЕРЬ
 
 ========================================================= */
 
-const grassMaterial =
-
-    material(
-
-        0x3d4839
-
-    );
-
-for (
-
-    let i = 0;
-
-    i < 180;
-
-    i++
-
-) {
-
-    const grass =
-
-        new THREE.Mesh(
-
-            new THREE.ConeGeometry(
-
-                0.03,
-
-                0.4 +
-
-                Math.random() * 0.5,
-
-                4
-
-            ),
-
-            grassMaterial
-
-        );
-
-    grass.position.set(
-
-        (Math.random() - 0.5)
-
-        * 100,
-
-        0.2,
-
-        -Math.random()
-
-        * 150
-
-    );
-
-    scene.add(
-
-        grass
-
-    );
-
-}
-
-/* =========================================================
-
-   КОСТЁР
-
-========================================================= */
-
-const fire =
+const camp =
 
     new THREE.Group();
 
-fire.position.set(
+camp.position.set(
 
     0,
 
@@ -766,13 +592,13 @@ fire.position.set(
 
 scene.add(
 
-    fire
+    camp
 
 );
 
 /* =========================================================
 
-   БРЁВНА
+   КОСТЁР
 
 ========================================================= */
 
@@ -802,11 +628,7 @@ for (
 
             ),
 
-            material(
-
-                0x493427
-
-            )
+            mat(0x493427)
 
         );
 
@@ -816,29 +638,19 @@ for (
 
     log.rotation.y =
 
-        i *
-
-        Math.PI /
-
-        3;
+        i * Math.PI / 3;
 
     log.position.y =
 
         0.15;
 
-    fire.add(
+    camp.add(
 
         log
 
     );
 
 }
-
-/* =========================================================
-
-   ПЛАМЯ
-
-========================================================= */
 
 const flame =
 
@@ -866,7 +678,7 @@ flame.position.y =
 
     1;
 
-fire.add(
+camp.add(
 
     flame
 
@@ -902,7 +714,7 @@ scene.add(
 
 /* =========================================================
 
-   СТАЛКЕР
+   NPC
 
 ========================================================= */
 
@@ -922,8 +734,6 @@ function createStalker(
 
         new THREE.Group();
 
-    /* тело */
-
     const body =
 
         new THREE.Mesh(
@@ -940,7 +750,7 @@ function createStalker(
 
             ),
 
-            material(
+            mat(
 
                 guitarist
 
@@ -956,17 +766,11 @@ function createStalker(
 
         1.15;
 
-    body.castShadow =
-
-        true;
-
     stalker.add(
 
         body
 
     );
-
-    /* голова */
 
     const head =
 
@@ -982,11 +786,7 @@ function createStalker(
 
             ),
 
-            material(
-
-                0x90745c
-
-            )
+            mat(0x90745c)
 
         );
 
@@ -994,17 +794,11 @@ function createStalker(
 
         2;
 
-    head.castShadow =
-
-        true;
-
     stalker.add(
 
         head
 
     );
-
-    /* капюшон */
 
     const hood =
 
@@ -1020,11 +814,7 @@ function createStalker(
 
             ),
 
-            material(
-
-                0x202720
-
-            )
+            mat(0x202720)
 
         );
 
@@ -1042,8 +832,6 @@ function createStalker(
 
     );
 
-    /* рюкзак */
-
     const backpack =
 
         new THREE.Mesh(
@@ -1058,11 +846,7 @@ function createStalker(
 
             ),
 
-            material(
-
-                0x252d27
-
-            )
+            mat(0x252d27)
 
         );
 
@@ -1082,7 +866,11 @@ function createStalker(
 
     );
 
-    /* оружие */
+    /* =====================================================
+
+       ОРУЖИЕ NPC
+
+    ===================================================== */
 
     if (!guitarist) {
 
@@ -1100,11 +888,7 @@ function createStalker(
 
                 ),
 
-                material(
-
-                    0x161916
-
-                )
+                mat(0x161916)
 
             );
 
@@ -1142,7 +926,7 @@ function createStalker(
 
             new THREE.Group();
 
-        const guitarBody =
+        const bodyGuitar =
 
             new THREE.Mesh(
 
@@ -1156,15 +940,11 @@ function createStalker(
 
                 ),
 
-                material(
-
-                    0x75462d
-
-                )
+                mat(0x75462d)
 
             );
 
-        guitarBody.scale.set(
+        bodyGuitar.scale.set(
 
             0.8,
 
@@ -1176,7 +956,7 @@ function createStalker(
 
         guitar.add(
 
-            guitarBody
+            bodyGuitar
 
         );
 
@@ -1194,11 +974,7 @@ function createStalker(
 
                 ),
 
-                material(
-
-                    0x4c3023
-
-                )
+                mat(0x4c3023)
 
             );
 
@@ -1221,10 +997,6 @@ function createStalker(
             0.5
 
         );
-
-        guitar.rotation.x =
-
-            -0.2;
 
         stalker.add(
 
@@ -1276,12 +1048,6 @@ function createStalker(
 
 }
 
-/* =========================================================
-
-   ЛЮДИ В ЛАГЕРЕ
-
-========================================================= */
-
 createStalker(
 
     -3.5,
@@ -1318,184 +1084,6 @@ createStalker(
 
 /* =========================================================
 
-   СОБАКА
-
-========================================================= */
-
-function createDog(
-
-    x,
-
-    z
-
-) {
-
-    const dog =
-
-        new THREE.Group();
-
-    const body =
-
-        new THREE.Mesh(
-
-            new THREE.BoxGeometry(
-
-                1.25,
-
-                0.55,
-
-                0.5
-
-            ),
-
-            material(
-
-                0x40372d
-
-            )
-
-        );
-
-    body.position.y =
-
-        0.65;
-
-    dog.add(
-
-        body
-
-    );
-
-    const head =
-
-        new THREE.Mesh(
-
-            new THREE.BoxGeometry(
-
-                0.5,
-
-                0.5,
-
-                0.5
-
-            ),
-
-            material(
-
-                0x4a3d30
-
-            )
-
-        );
-
-    head.position.set(
-
-        0.75,
-
-        0.8,
-
-        0
-
-    );
-
-    dog.add(
-
-        head
-
-    );
-
-    for (
-
-        let i = 0;
-
-        i < 4;
-
-        i++
-
-    ) {
-
-        const leg =
-
-            new THREE.Mesh(
-
-                new THREE.CylinderGeometry(
-
-                    0.07,
-
-                    0.08,
-
-                    0.6,
-
-                    6
-
-                ),
-
-                material(
-
-                    0x302a24
-
-                )
-
-            );
-
-        leg.position.set(
-
-            i < 2
-
-                ? 0.4
-
-                : -0.4,
-
-            0.3,
-
-            i % 2 === 0
-
-                ? 0.15
-
-                : -0.15
-
-        );
-
-        dog.add(
-
-            leg
-
-        );
-
-    }
-
-    dog.position.set(
-
-        x,
-
-        0,
-
-        z
-
-    );
-
-    scene.add(
-
-        dog
-
-    );
-
-    return dog;
-
-}
-
-const dog =
-
-    createDog(
-
-        -7,
-
-        -46
-
-    );
-
-/* =========================================================
-
    УАЗ
 
 ========================================================= */
@@ -1526,21 +1114,13 @@ function createUAZ(
 
             ),
 
-            material(
-
-                0x44483e
-
-            )
+            mat(0x44483e)
 
         );
 
     body.position.y =
 
         1.15;
-
-    body.castShadow =
-
-        true;
 
     car.add(
 
@@ -1562,11 +1142,7 @@ function createUAZ(
 
             ),
 
-            material(
-
-                0x363b33
-
-            )
+            mat(0x363b33)
 
         );
 
@@ -1579,10 +1155,6 @@ function createUAZ(
         0
 
     );
-
-    cabin.castShadow =
-
-        true;
 
     car.add(
 
@@ -1622,11 +1194,7 @@ function createUAZ(
 
                     ),
 
-                    material(
-
-                        0x151714
-
-                    )
+                    mat(0x151714)
 
                 );
 
@@ -1690,205 +1258,41 @@ createUAZ(
 
 ========================================================= */
 
-function createTent(
+const tent =
 
-    x,
+    new THREE.Mesh(
 
-    z
+        new THREE.ConeGeometry(
 
-) {
+            2.1,
 
-    const tent =
+            3,
 
-        new THREE.Mesh(
+            3
 
-            new THREE.ConeGeometry(
+        ),
 
-                2.1,
-
-                3,
-
-                3
-
-            ),
-
-            material(
-
-                0x343c32
-
-            )
-
-        );
-
-    tent.position.set(
-
-        x,
-
-        1.5,
-
-        z
+        mat(0x343c32)
 
     );
 
-    tent.rotation.y =
-
-        Math.PI / 2;
-
-    tent.castShadow =
-
-        true;
-
-    scene.add(
-
-        tent
-
-    );
-
-}
-
-createTent(
+tent.position.set(
 
     -13,
+
+    1.5,
 
     -50
 
 );
 
-/* =========================================================
+tent.rotation.y =
 
-   ФОНАРИ
+    Math.PI / 2;
 
-========================================================= */
+scene.add(
 
-function createLantern(
-
-    x,
-
-    z
-
-) {
-
-    const pole =
-
-        new THREE.Mesh(
-
-            new THREE.CylinderGeometry(
-
-                0.05,
-
-                0.07,
-
-                2.4,
-
-                7
-
-            ),
-
-            material(
-
-                0x252824
-
-            )
-
-        );
-
-    pole.position.set(
-
-        x,
-
-        1.2,
-
-        z
-
-    );
-
-    scene.add(
-
-        pole
-
-    );
-
-    const bulb =
-
-        new THREE.Mesh(
-
-            new THREE.SphereGeometry(
-
-                0.16,
-
-                8,
-
-                8
-
-            ),
-
-            new THREE.MeshBasicMaterial({
-
-                color: 0xffb45c
-
-            })
-
-        );
-
-    bulb.position.set(
-
-        x,
-
-        2.35,
-
-        z
-
-    );
-
-    scene.add(
-
-        bulb
-
-    );
-
-    const light =
-
-        new THREE.PointLight(
-
-            0xffa34c,
-
-            0.8,
-
-            9
-
-        );
-
-    light.position.set(
-
-        x,
-
-        2.35,
-
-        z
-
-    );
-
-    scene.add(
-
-        light
-
-    );
-
-}
-
-createLantern(
-
-    -10,
-
-    -47
-
-);
-
-createLantern(
-
-    10,
-
-    -47
+    tent
 
 );
 
@@ -1900,7 +1304,7 @@ createLantern(
 
 const rainCount =
 
-    650;
+    700;
 
 const rainGeometry =
 
@@ -1940,9 +1344,7 @@ for (
 
     ] =
 
-        Math.random() *
-
-        60;
+        Math.random() * 60;
 
     rainPositions[
 
@@ -1998,6 +1400,476 @@ scene.add(
 
 /* =========================================================
 
+   ☢ ОРУЖИЕ ИГРОКА
+
+========================================================= */
+
+const weapon =
+
+    new THREE.Group();
+
+/* корпус */
+
+const weaponBody =
+
+    new THREE.Mesh(
+
+        new THREE.BoxGeometry(
+
+            0.28,
+
+            0.22,
+
+            1.45
+
+        ),
+
+        mat(0x20231f)
+
+    );
+
+weaponBody.position.set(
+
+    0,
+
+    0,
+
+    0
+
+);
+
+weapon.add(
+
+    weaponBody
+
+);
+
+/* ствол */
+
+const barrel =
+
+    new THREE.Mesh(
+
+        new THREE.CylinderGeometry(
+
+            0.055,
+
+            0.055,
+
+            1.2,
+
+            8
+
+        ),
+
+        mat(0x111310)
+
+    );
+
+barrel.rotation.x =
+
+    Math.PI / 2;
+
+barrel.position.set(
+
+    0,
+
+    0.02,
+
+    -1.15
+
+);
+
+weapon.add(
+
+    barrel
+
+);
+
+/* рукоятка */
+
+const grip =
+
+    new THREE.Mesh(
+
+        new THREE.BoxGeometry(
+
+            0.18,
+
+            0.55,
+
+            0.2
+
+        ),
+
+        mat(0x29251f)
+
+    );
+
+grip.position.set(
+
+    0,
+
+    -0.35,
+
+    0.25
+
+);
+
+grip.rotation.x =
+
+    -0.15;
+
+weapon.add(
+
+    grip
+
+);
+
+/* магазин */
+
+const magazine =
+
+    new THREE.Mesh(
+
+        new THREE.BoxGeometry(
+
+            0.2,
+
+            0.55,
+
+            0.35
+
+        ),
+
+        mat(0x1b1d1a)
+
+    );
+
+magazine.position.set(
+
+    0,
+
+    -0.28,
+
+    -0.1
+
+);
+
+magazine.rotation.x =
+
+    -0.15;
+
+weapon.add(
+
+    magazine
+
+);
+
+/* положение оружия */
+
+weapon.position.set(
+
+    0.48,
+
+    -0.45,
+
+    -0.85
+
+);
+
+weapon.rotation.set(
+
+    -0.03,
+
+    -0.03,
+
+    0
+
+);
+
+camera.add(
+
+    weapon
+
+);
+
+scene.add(
+
+    camera
+
+);
+
+/* =========================================================
+
+   ВСПЫШКА ВЫСТРЕЛА
+
+========================================================= */
+
+const muzzleFlash =
+
+    new THREE.Mesh(
+
+        new THREE.ConeGeometry(
+
+            0.18,
+
+            0.55,
+
+            8
+
+        ),
+
+        new THREE.MeshBasicMaterial({
+
+            color: 0xffd36a
+
+        })
+
+    );
+
+muzzleFlash.rotation.x =
+
+    -Math.PI / 2;
+
+muzzleFlash.position.set(
+
+    0.48,
+
+    -0.43,
+
+    -2.15
+
+);
+
+muzzleFlash.visible =
+
+    false;
+
+camera.add(
+
+    muzzleFlash
+
+);
+
+/* =========================================================
+
+   ПУЛЯ
+
+========================================================= */
+
+const bullets = [];
+
+function shoot() {
+
+    if (
+
+        ammo <= 0
+
+    ) {
+
+        showMessage(
+
+            "ПУСТО. Нажми R для перезарядки."
+
+        );
+
+        return;
+
+    }
+
+    ammo--;
+
+    updateAmmo();
+
+    /* вспышка */
+
+    muzzleFlash.visible =
+
+        true;
+
+    clearTimeout(
+
+        window.flashTimer
+
+    );
+
+    window.flashTimer =
+
+        setTimeout(
+
+            () => {
+
+                muzzleFlash.visible =
+
+                    false;
+
+            },
+
+            55
+
+        );
+
+    /* создаём пулю */
+
+    const bullet =
+
+        new THREE.Mesh(
+
+            new THREE.SphereGeometry(
+
+                0.035,
+
+                6,
+
+                6
+
+            ),
+
+            new THREE.MeshBasicMaterial({
+
+                color: 0xffd36a
+
+            })
+
+        );
+
+    const direction =
+
+        new THREE.Vector3(
+
+            0,
+
+            0,
+
+            -1
+
+        );
+
+    direction.applyQuaternion(
+
+        camera.quaternion
+
+    );
+
+    bullet.position.copy(
+
+        camera.position
+
+    );
+
+    bullet.userData.velocity =
+
+        direction.multiplyScalar(
+
+            45
+
+        );
+
+    bullet.userData.life =
+
+        2;
+
+    scene.add(
+
+        bullet
+
+    );
+
+    bullets.push(
+
+        bullet
+
+    );
+
+    /* отдача */
+
+    weapon.position.z =
+
+        -0.75;
+
+    weapon.rotation.x =
+
+        -0.08;
+
+}
+
+/* =========================================================
+
+   ПЕРЕЗАРЯДКА
+
+========================================================= */
+
+let reloading =
+
+    false;
+
+function reload() {
+
+    if (
+
+        reloading ||
+
+        ammo === maxAmmo
+
+    )
+
+        return;
+
+    reloading =
+
+        true;
+
+    showMessage(
+
+        "ПЕРЕЗАРЯДКА..."
+
+    );
+
+    setTimeout(
+
+        () => {
+
+            ammo =
+
+                maxAmmo;
+
+            reloading =
+
+                false;
+
+            updateAmmo();
+
+            showMessage(
+
+                "МАГАЗИН ПОЛОН"
+
+            );
+
+        },
+
+        1200
+
+    );
+
+}
+
+/* =========================================================
+
+   ПАТРОНЫ
+
+========================================================= */
+
+let maxAmmo =
+
+    30;
+
+let ammo =
+
+    30;
+
+/* =========================================================
+
    HUD
 
 ========================================================= */
@@ -2023,6 +1895,8 @@ hud.style.cssText = `
     color:#d0d5c9;
 
     font-family:Arial,sans-serif;
+
+    text-shadow:0 2px 6px #000;
 
 `;
 
@@ -2050,17 +1924,19 @@ title.innerHTML =
 
     `☢ ЗОНА<br>
 
-     <span style="
+    <span style="
 
-        font-size:11px;
+        font-size:10px;
 
-        opacity:.7;
+        opacity:.65;
 
-     ">
+        letter-spacing:1px;
 
-        ЛАГЕРЬ
+    ">
 
-     </span>`;
+        КОРДОН
+
+    </span>`;
 
 title.style.cssText = `
 
@@ -2074,8 +1950,6 @@ title.style.cssText = `
 
     line-height:1.6;
 
-    text-shadow:0 2px 6px #000;
-
 `;
 
 hud.appendChild(
@@ -2083,6 +1957,68 @@ hud.appendChild(
     title
 
 );
+
+/* =========================================================
+
+   ПАТРОНЫ
+
+========================================================= */
+
+const ammoHud =
+
+    document.createElement(
+
+        "div"
+
+    );
+
+ammoHud.style.cssText = `
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:20px;
+
+    font-size:18px;
+
+    letter-spacing:2px;
+
+`;
+
+hud.appendChild(
+
+    ammoHud
+
+);
+
+function updateAmmo() {
+
+    ammoHud.innerHTML =
+
+        `<span style="font-size:28px">${ammo}</span>
+
+        <span style="opacity:.45"> / ${maxAmmo}</span>
+
+        <div style="
+
+            font-size:9px;
+
+            letter-spacing:1px;
+
+            opacity:.6;
+
+            margin-top:2px;
+
+        ">
+
+            5.45×39
+
+        </div>`;
+
+}
+
+updateAmmo();
 
 /* =========================================================
 
@@ -2100,7 +2036,7 @@ const health =
 
 health.textContent =
 
-    "ЗДОРОВЬЕ  ██████████ 100%";
+    "❤️ 100%";
 
 health.style.cssText = `
 
@@ -2112,8 +2048,6 @@ health.style.cssText = `
 
     font-size:12px;
 
-    text-shadow:0 2px 6px #000;
-
 `;
 
 hud.appendChild(
@@ -2124,7 +2058,7 @@ hud.appendChild(
 
 /* =========================================================
 
-   ПЕРЕКРЕСТИЕ
+   ПРИЦЕЛ
 
 ========================================================= */
 
@@ -2164,6 +2098,86 @@ hud.appendChild(
 
 /* =========================================================
 
+   СООБЩЕНИЯ
+
+========================================================= */
+
+const message =
+
+    document.createElement(
+
+        "div"
+
+    );
+
+message.style.cssText = `
+
+    position:absolute;
+
+    left:50%;
+
+    top:58%;
+
+    transform:translateX(-50%);
+
+    padding:8px 14px;
+
+    background:rgba(5,8,6,.8);
+
+    border:1px solid rgba(200,210,190,.2);
+
+    font-size:12px;
+
+    display:none;
+
+`;
+
+hud.appendChild(
+
+    message
+
+);
+
+function showMessage(
+
+    text
+
+) {
+
+    message.textContent =
+
+        text;
+
+    message.style.display =
+
+        "block";
+
+    clearTimeout(
+
+        window.messageTimer
+
+    );
+
+    window.messageTimer =
+
+        setTimeout(
+
+            () => {
+
+                message.style.display =
+
+                    "none";
+
+            },
+
+            1800
+
+        );
+
+}
+
+/* =========================================================
+
    МИНИ-КАРТА
 
 ========================================================= */
@@ -2192,8 +2206,6 @@ map.style.cssText = `
 
     border:1px solid rgba(210,220,200,.3);
 
-    box-shadow:0 0 15px rgba(0,0,0,.5);
-
 `;
 
 hud.appendChild(
@@ -2202,7 +2214,7 @@ hud.appendChild(
 
 );
 
-const mapRoad =
+const mapPlayer =
 
     document.createElement(
 
@@ -2210,71 +2222,7 @@ const mapRoad =
 
     );
 
-mapRoad.style.cssText = `
-
-    position:absolute;
-
-    left:53px;
-
-    top:0;
-
-    width:14px;
-
-    height:100%;
-
-    background:rgba(130,120,95,.35);
-
-`;
-
-map.appendChild(
-
-    mapRoad
-
-);
-
-const mapCamp =
-
-    document.createElement(
-
-        "div"
-
-    );
-
-mapCamp.style.cssText = `
-
-    position:absolute;
-
-    left:46px;
-
-    top:46px;
-
-    width:28px;
-
-    height:28px;
-
-    border-radius:50%;
-
-    background:rgba(225,110,40,.8);
-
-    box-shadow:0 0 12px rgba(255,120,40,.7);
-
-`;
-
-map.appendChild(
-
-    mapCamp
-
-);
-
-const playerDot =
-
-    document.createElement(
-
-        "div"
-
-    );
-
-playerDot.style.cssText = `
+mapPlayer.style.cssText = `
 
     position:absolute;
 
@@ -2284,15 +2232,15 @@ playerDot.style.cssText = `
 
     border-radius:50%;
 
-    background:#fff;
+    background:white;
 
-    box-shadow:0 0 7px #fff;
+    box-shadow:0 0 7px white;
 
 `;
 
 map.appendChild(
 
-    playerDot
+    mapPlayer
 
 );
 
@@ -2324,15 +2272,13 @@ dialogue.style.cssText = `
 
     padding:10px 15px;
 
-    background:rgba(5,8,6,.88);
+    background:rgba(5,8,6,.9);
 
     border:1px solid rgba(200,210,190,.25);
 
     color:#d0d5c9;
 
     font-size:13px;
-
-    line-height:1.4;
 
     text-align:center;
 
@@ -2350,125 +2296,65 @@ document.body.appendChild(
 
 /* =========================================================
 
-   УПРАВЛЕНИЕ
+   КНОПКА СТРЕЛЬБЫ
 
 ========================================================= */
 
-const keys = {
+const shootButton =
 
-    forward: false,
+    document.createElement(
 
-    backward: false,
+        "button"
 
-    left: false,
+    );
 
-    right: false
+shootButton.textContent =
 
-};
+    "●";
 
-window.addEventListener(
+shootButton.style.cssText = `
 
-    "keydown",
+    position:fixed;
 
-    e => {
+    right:25px;
 
-        if (
+    bottom:105px;
 
-            e.code === "KeyW" ||
+    width:70px;
 
-            e.code === "ArrowUp"
+    height:70px;
 
-        )
+    border-radius:50%;
 
-            keys.forward = true;
+    border:1px solid rgba(220,220,210,.35);
 
-        if (
+    background:rgba(80,25,15,.55);
 
-            e.code === "KeyS" ||
+    color:#ddd;
 
-            e.code === "ArrowDown"
+    font-size:24px;
 
-        )
+    z-index:40;
 
-            keys.backward = true;
+    touch-action:none;
 
-        if (
+`;
 
-            e.code === "KeyA" ||
+document.body.appendChild(
 
-            e.code === "ArrowLeft"
-
-        )
-
-            keys.left = true;
-
-        if (
-
-            e.code === "KeyD" ||
-
-            e.code === "ArrowRight"
-
-        )
-
-            keys.right = true;
-
-        if (
-
-            e.code === "KeyE"
-
-        )
-
-            talkToNearest();
-
-    }
+    shootButton
 
 );
 
-window.addEventListener(
+shootButton.addEventListener(
 
-    "keyup",
+    "pointerdown",
 
     e => {
 
-        if (
+        e.preventDefault();
 
-            e.code === "KeyW" ||
-
-            e.code === "ArrowUp"
-
-        )
-
-            keys.forward = false;
-
-        if (
-
-            e.code === "KeyS" ||
-
-            e.code === "ArrowDown"
-
-        )
-
-            keys.backward = false;
-
-        if (
-
-            e.code === "KeyA" ||
-
-            e.code === "ArrowLeft"
-
-        )
-
-            keys.left = false;
-
-        if (
-
-            e.code === "KeyD" ||
-
-            e.code === "ArrowRight"
-
-        )
-
-            keys.right = false;
+        shoot();
 
     }
 
@@ -2476,7 +2362,63 @@ window.addEventListener(
 
 /* =========================================================
 
-   МОБИЛЬНЫЙ JOYSTICK
+   КНОПКА ПЕРЕЗАРЯДКИ
+
+========================================================= */
+
+const reloadButton =
+
+    document.createElement(
+
+        "button"
+
+    );
+
+reloadButton.textContent =
+
+    "R";
+
+reloadButton.style.cssText = `
+
+    position:fixed;
+
+    right:30px;
+
+    bottom:35px;
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(210,220,200,.3);
+
+    background:rgba(10,14,11,.75);
+
+    color:#ddd;
+
+    z-index:40;
+
+`;
+
+document.body.appendChild(
+
+    reloadButton
+
+);
+
+reloadButton.addEventListener(
+
+    "click",
+
+    reload
+
+);
+
+/* =========================================================
+
+   ДЖОЙСТИК
 
 ========================================================= */
 
@@ -2542,8 +2484,6 @@ stick.style.cssText = `
 
     background:rgba(180,190,175,.3);
 
-    border:1px solid rgba(220,225,215,.3);
-
 `;
 
 joystick.appendChild(
@@ -2584,15 +2524,11 @@ function joystickMove(
 
     let dx =
 
-        x -
-
-        centerX;
+        x - centerX;
 
     let dy =
 
-        y -
-
-        centerY;
+        y - centerY;
 
     const max =
 
@@ -2610,9 +2546,7 @@ function joystickMove(
 
     if (
 
-        distance >
-
-        max
+        distance > max
 
     ) {
 
@@ -2686,7 +2620,7 @@ joystick.addEventListener(
 
             joyActive
 
-        )
+        ) {
 
             joystickMove(
 
@@ -2695,6 +2629,8 @@ joystick.addEventListener(
                 e.clientY
 
             );
+
+        }
 
     }
 
@@ -2724,65 +2660,133 @@ joystick.addEventListener(
 
 /* =========================================================
 
-   МОБИЛЬНАЯ КНОПКА E
+   УПРАВЛЕНИЕ КЛАВИАТУРОЙ
 
 ========================================================= */
 
-const interact =
+const keys = {
 
-    document.createElement(
+    forward:false,
 
-        "button"
+    backward:false,
 
-    );
+    left:false,
 
-interact.textContent =
+    right:false
 
-    "E";
+};
 
-interact.style.cssText = `
+window.addEventListener(
 
-    position:fixed;
+    "keydown",
 
-    right:25px;
+    e => {
 
-    bottom:35px;
+        if (
 
-    width:55px;
+            e.code === "KeyW"
 
-    height:55px;
+        )
 
-    border-radius:50%;
+            keys.forward = true;
 
-    border:1px solid rgba(210,220,200,.35);
+        if (
 
-    background:rgba(10,14,11,.7);
+            e.code === "KeyS"
 
-    color:#d8ddd2;
+        )
 
-    font-size:18px;
+            keys.backward = true;
 
-    z-index:40;
+        if (
 
-`;
+            e.code === "KeyA"
 
-document.body.appendChild(
+        )
 
-    interact
+            keys.left = true;
+
+        if (
+
+            e.code === "KeyD"
+
+        )
+
+            keys.right = true;
+
+        if (
+
+            e.code === "Space"
+
+        )
+
+            shoot();
+
+        if (
+
+            e.code === "KeyR"
+
+        )
+
+            reload();
+
+        if (
+
+            e.code === "KeyE"
+
+        )
+
+            talkToNearest();
+
+    }
 
 );
 
-interact.addEventListener(
+window.addEventListener(
 
-    "click",
+    "keyup",
 
-    talkToNearest
+    e => {
+
+        if (
+
+            e.code === "KeyW"
+
+        )
+
+            keys.forward = false;
+
+        if (
+
+            e.code === "KeyS"
+
+        )
+
+            keys.backward = false;
+
+        if (
+
+            e.code === "KeyA"
+
+        )
+
+            keys.left = false;
+
+        if (
+
+            e.code === "KeyD"
+
+        )
+
+            keys.right = false;
+
+    }
 
 );
 
 /* =========================================================
 
-   МЫШЬ / ОБЗОР
+   ОБЗОР
 
 ========================================================= */
 
@@ -2790,9 +2794,7 @@ let yaw = 0;
 
 let pitch = 0;
 
-let dragging =
-
-    false;
+let dragging = false;
 
 let lastMouseX = 0;
 
@@ -2806,15 +2808,11 @@ renderer.domElement.addEventListener(
 
         if (
 
-            e.pointerType ===
-
-            "mouse"
+            e.pointerType === "mouse"
 
         ) {
 
-            dragging =
-
-                true;
+            dragging = true;
 
             lastMouseX =
 
@@ -2836,9 +2834,7 @@ window.addEventListener(
 
     () => {
 
-        dragging =
-
-            false;
+        dragging = false;
 
     }
 
@@ -2880,15 +2876,11 @@ window.addEventListener(
 
         yaw -=
 
-            dx *
-
-            0.0025;
+            dx * 0.0025;
 
         pitch -=
 
-            dy *
-
-            0.0025;
+            dy * 0.0025;
 
         pitch =
 
@@ -2912,205 +2904,109 @@ window.addEventListener(
 
 /* =========================================================
 
-   TOUCH-ОБЗОР
+   ДИАЛОГ NPC
 
 ========================================================= */
 
-let lookTouch =
+function talkToNearest() {
 
-    null;
+    let nearest =
 
-window.addEventListener(
+        null;
 
-    "touchstart",
+    let distanceBest =
 
-    e => {
+        3.5;
 
-        for (
+    npcs.forEach(
 
-            const touch
+        npc => {
 
-            of e.changedTouches
+            const d =
 
-        ) {
+                camera.position.distanceTo(
 
-            const x =
-
-                touch.clientX;
-
-            /*
-
-               Правая часть экрана —
-
-               обзор камеры
-
-            */
-
-            if (
-
-                x >
-
-                window.innerWidth *
-
-                0.45
-
-            ) {
-
-                lookTouch =
-
-                    touch.identifier;
-
-            }
-
-        }
-
-    },
-
-    {
-
-        passive: true
-
-    }
-
-);
-
-window.addEventListener(
-
-    "touchmove",
-
-    e => {
-
-        if (
-
-            lookTouch === null
-
-        )
-
-            return;
-
-        for (
-
-            const touch
-
-            of e.changedTouches
-
-        ) {
-
-            if (
-
-                touch.identifier !==
-
-                lookTouch
-
-            )
-
-                continue;
-
-            if (
-
-                !window.lastTouchX
-
-            ) {
-
-                window.lastTouchX =
-
-                    touch.clientX;
-
-                window.lastTouchY =
-
-                    touch.clientY;
-
-                return;
-
-            }
-
-            const dx =
-
-                touch.clientX -
-
-                window.lastTouchX;
-
-            const dy =
-
-                touch.clientY -
-
-                window.lastTouchY;
-
-            window.lastTouchX =
-
-                touch.clientX;
-
-            window.lastTouchY =
-
-                touch.clientY;
-
-            yaw -=
-
-                dx *
-
-                0.006;
-
-            pitch -=
-
-                dy *
-
-                0.006;
-
-            pitch =
-
-                Math.max(
-
-                    -1.3,
-
-                    Math.min(
-
-                        1.3,
-
-                        pitch
-
-                    )
+                    npc.position
 
                 );
 
+            if (
+
+                d <
+
+                distanceBest
+
+            ) {
+
+                nearest =
+
+                    npc;
+
+                distanceBest =
+
+                    d;
+
+            }
+
         }
 
-    },
+    );
 
-    {
+    if (
 
-        passive: true
+        !nearest
 
-    }
+    )
 
-);
+        return;
 
-window.addEventListener(
+    dialogue.style.display =
 
-    "touchend",
+        "block";
 
-    () => {
+    if (
 
-        lookTouch =
+        nearest.userData.guitarist
 
-            null;
+    ) {
 
-        window.lastTouchX =
+        dialogue.textContent =
 
-            null;
-
-        window.lastTouchY =
-
-            null;
-
-    },
-
-    {
-
-        passive: true
+            "🎸 Гитарист: «Садись к костру, сталкер. В Зоне ночью лучше не ходить одному.»";
 
     }
 
-);
+    else {
+
+        dialogue.textContent =
+
+            "🧑 Сталкер: «Держи оружие наготове. За Кордоном сегодня неспокойно.»";
+
+    }
+
+    clearTimeout(
+
+        window.dialogueTimer
+
+    );
+
+    window.dialogueTimer =
+
+        setTimeout(
+
+            () => {
+
+                dialogue.style.display =
+
+                    "none";
+
+            },
+
+            5000
+
+        );
+
+}
 
 /* =========================================================
 
@@ -3128,13 +3024,9 @@ function updatePlayer(
 
 ) {
 
-    let forward =
+    let forward = 0;
 
-        0;
-
-    let side =
-
-        0;
+    let side = 0;
 
     if (
 
@@ -3168,14 +3060,6 @@ function updatePlayer(
 
         side -= 1;
 
-    /*
-
-       Добавляем мобильный
-
-       джойстик
-
-    */
-
     forward +=
 
         -joyY;
@@ -3188,13 +3072,9 @@ function updatePlayer(
 
         Math.sqrt(
 
-            forward *
+            forward * forward +
 
-            forward +
-
-            side *
-
-            side
+            side * side
 
         );
 
@@ -3204,21 +3084,15 @@ function updatePlayer(
 
     ) {
 
-        forward /=
+        forward /= length;
 
-            length;
-
-        side /=
-
-            length;
+        side /= length;
 
     }
 
     const speed =
 
-        5 *
-
-        delta;
+        5 * delta;
 
     const direction =
 
@@ -3292,14 +3166,6 @@ function updatePlayer(
 
     );
 
-    /*
-
-       Не даём уйти
-
-       слишком далеко
-
-    */
-
     camera.position.x =
 
         Math.max(
@@ -3362,47 +3228,171 @@ function updateCamera() {
 
 /* =========================================================
 
-   ДИАЛОГИ
+   ПУЛИ
 
 ========================================================= */
 
-function talkToNearest() {
+function updateBullets(
 
-    let nearest =
+    delta
 
-        null;
+) {
 
-    let nearestDistance =
+    for (
 
-        3.5;
+        let i = bullets.length - 1;
+
+        i >= 0;
+
+        i--
+
+    ) {
+
+        const bullet =
+
+            bullets[i];
+
+        bullet.position.add(
+
+            bullet.userData.velocity
+
+                .clone()
+
+                .multiplyScalar(delta)
+
+        );
+
+        bullet.userData.life -=
+
+            delta;
+
+        if (
+
+            bullet.userData.life <= 0
+
+        ) {
+
+            scene.remove(
+
+                bullet
+
+            );
+
+            bullets.splice(
+
+                i,
+
+                1
+
+            );
+
+        }
+
+    }
+
+}
+
+/* =========================================================
+
+   АТМОСФЕРА
+
+========================================================= */
+
+function updateAtmosphere(
+
+    time
+
+) {
+
+    flame.scale.x =
+
+        1 +
+
+        Math.sin(
+
+            time * 8
+
+        ) * 0.12;
+
+    flame.scale.y =
+
+        1 +
+
+        Math.sin(
+
+            time * 10
+
+        ) * 0.15;
+
+    flame.rotation.y =
+
+        time * 2;
+
+    fireLight.intensity =
+
+        2.1 +
+
+        Math.sin(
+
+            time * 9
+
+        ) * 0.35;
+
+    /*
+
+       Возврат оружия
+
+       после отдачи
+
+    */
+
+    weapon.position.z =
+
+        THREE.MathUtils.lerp(
+
+            weapon.position.z,
+
+            -0.85,
+
+            0.18
+
+        );
+
+    weapon.rotation.x =
+
+        THREE.MathUtils.lerp(
+
+            weapon.rotation.x,
+
+            -0.03,
+
+            0.18
+
+        );
+
+    /*
+
+       Гитара
+
+    */
 
     npcs.forEach(
 
         npc => {
 
-            const distance =
-
-                camera.position.distanceTo(
-
-                    npc.position
-
-                );
-
             if (
 
-                distance <
-
-                nearestDistance
+                npc.userData.guitar
 
             ) {
 
-                nearest =
+                npc.userData.guitar.rotation.z =
 
-                    npc;
+                    Math.sin(
 
-                nearestDistance =
+                        time * 2
 
-                    distance;
+                    ) * 0.04;
 
             }
 
@@ -3410,181 +3400,11 @@ function talkToNearest() {
 
     );
 
-    if (
+    /*
 
-        !nearest
+       Дождь
 
-    )
-
-        return;
-
-    dialogue.style.display =
-
-        "block";
-
-    if (
-
-        nearest.userData.guitarist
-
-    ) {
-
-        dialogue.textContent =
-
-            "🎸 Гитарист: «Садись к костру. В Зоне ночью лучше не ходить одному.»";
-
-    }
-
-    else {
-
-        dialogue.textContent =
-
-            "🧑 Сталкер: «Добро пожаловать в Зону. Держи оружие наготове.»";
-
-    }
-
-    clearTimeout(
-
-        window.dialogueTimer
-
-    );
-
-    window.dialogueTimer =
-
-        setTimeout(
-
-            () => {
-
-                dialogue.style.display =
-
-                    "none";
-
-            },
-
-            5000
-
-        );
-
-}
-
-/* =========================================================
-
-   ПРОВЕРКА БЛИЗОСТИ
-
-========================================================= */
-
-function checkNPC() {
-
-    let close =
-
-        false;
-
-    npcs.forEach(
-
-        npc => {
-
-            const distance =
-
-                camera.position.distanceTo(
-
-                    npc.position
-
-                );
-
-            if (
-
-                distance <
-
-                3.5
-
-            )
-
-                close =
-
-                    true;
-
-        }
-
-    );
-
-    interact.style.opacity =
-
-        close
-
-            ? "1"
-
-            : "0.45";
-
-}
-
-/* =========================================================
-
-   КАРТА
-
-========================================================= */
-
-function updateMap() {
-
-    const x =
-
-        60 +
-
-        camera.position.x *
-
-        0.45;
-
-    const y =
-
-        60 +
-
-        (camera.position.z + 45) *
-
-        0.35;
-
-    playerDot.style.left =
-
-        Math.max(
-
-            3,
-
-            Math.min(
-
-                113,
-
-                x
-
-            )
-
-        ) +
-
-        "px";
-
-    playerDot.style.top =
-
-        Math.max(
-
-            3,
-
-            Math.min(
-
-                113,
-
-                y
-
-            )
-
-        ) +
-
-        "px";
-
-}
-
-/* =========================================================
-
-   ДОЖДЬ
-
-========================================================= */
-
-function updateRain() {
+    */
 
     const positions =
 
@@ -3658,125 +3478,63 @@ function updateRain() {
 
 /* =========================================================
 
-   АТМОСФЕРА
+   КАРТА
 
 ========================================================= */
 
-function updateAtmosphere(
+function updateMap() {
 
-    time
+    const x =
 
-) {
+        60 +
 
-    /*
+        camera.position.x *
 
-       Пламя
+        0.45;
 
-    */
+    const y =
 
-    flame.scale.x =
+        60 +
 
-        1 +
+        (camera.position.z + 45)
 
-        Math.sin(
+        * 0.35;
 
-            time * 8
+    mapPlayer.style.left =
 
-        ) *
+        Math.max(
 
-        0.12;
+            3,
 
-    flame.scale.y =
+            Math.min(
 
-        1 +
+                113,
 
-        Math.sin(
+                x
 
-            time * 10
+            )
 
-        ) *
+        ) +
 
-        0.15;
+        "px";
 
-    flame.rotation.y =
+    mapPlayer.style.top =
 
-        time * 2;
+        Math.max(
 
-    /*
+            3,
 
-       Свет костра
+            Math.min(
 
-    */
+                113,
 
-    fireLight.intensity =
+                y
 
-        2.1 +
+            )
 
-        Math.sin(
+        ) +
 
-            time * 9
-
-        ) *
-
-        0.35;
-
-    /*
-
-       Гитарист
-
-    */
-
-    npcs.forEach(
-
-        npc => {
-
-            if (
-
-                npc.userData.guitar
-
-            ) {
-
-                npc.userData.guitar.rotation.z =
-
-                    Math.sin(
-
-                        time * 2
-
-                    ) *
-
-                    0.04;
-
-            }
-
-        }
-
-    );
-
-    /*
-
-       Собака
-
-    */
-
-    dog.rotation.y =
-
-        -0.2 +
-
-        Math.sin(
-
-            time * 0.6
-
-        ) *
-
-        0.12;
-
-    /*
-
-       Дождь
-
-    */
-
-    updateRain();
+        "px";
 
 }
 
@@ -3850,13 +3608,17 @@ function gameLoop() {
 
     updateCamera();
 
+    updateBullets(
+
+        delta
+
+    );
+
     updateAtmosphere(
 
         time
 
     );
-
-    checkNPC();
 
     updateMap();
 
@@ -3872,25 +3634,19 @@ function gameLoop() {
 
 /* =========================================================
 
-   СТАРТ
+   START
 
 ========================================================= */
 
 console.log(
 
-    "☢ STALKER — ЗОНА ЗАПУЩЕНА"
+    "☢ STALKER — ЗОНА"
 
 );
 
 console.log(
 
-    "🌲 Лес готов"
-
-);
-
-console.log(
-
-    "🏕️ Лагерь готов"
+    "🔫 Оружие готово"
 
 );
 
@@ -3902,25 +3658,13 @@ console.log(
 
 console.log(
 
-    "🧑 Сталкеры готовы"
-
-);
-
-console.log(
-
-    "🎸 Гитарист готов"
+    "🎸 Лагерь готов"
 
 );
 
 console.log(
 
     "🌧️ Дождь готов"
-
-);
-
-console.log(
-
-    "🎮 Управление готово"
 
 );
 

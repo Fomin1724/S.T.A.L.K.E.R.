@@ -2,15 +2,15 @@
 
     box-sizing: border-box;
 
-    margin: 0;
-
-    padding: 0;
-
 }
 
 html,
 
 body {
+
+    margin: 0;
+
+    padding: 0;
 
     width: 100%;
 
@@ -24,9 +24,9 @@ body {
 
         Arial,
 
-        sans-serif;
+        Helvetica,
 
-    color: #c8d0bd;
+        sans-serif;
 
     user-select: none;
 
@@ -36,253 +36,107 @@ body {
 
 }
 
-/* =========================================
+body {
 
-   3D ИГРА
+    position: relative;
 
-========================================= */
+}
 
-#game {
+canvas {
 
     position: fixed;
 
-    inset: 0;
+    left: 0;
+
+    top: 0;
 
     width: 100%;
 
     height: 100%;
-
-    overflow: hidden;
-
-}
-
-#game canvas {
 
     display: block;
 
-    width: 100%;
-
-    height: 100%;
+    z-index: 1;
 
 }
 
-/* =========================================
-
-   ПРИЦЕЛ
-
-========================================= */
-
-#crosshair {
-
-    position: fixed;
-
-    left: 50%;
-
-    top: 50%;
-
-    transform:
-
-        translate(-50%, -50%);
-
-    z-index: 20;
-
-    color:
-
-        rgba(210, 220, 200, 0.75);
-
-    font-size: 19px;
-
-    font-family:
-
-        monospace;
-
-    pointer-events: none;
-
-    text-shadow:
-
-        0 0 4px #000;
-
-}
-
-/* =========================================
+/* ==============================
 
    HUD
 
-========================================= */
+============================== */
 
-#hud {
+.stalker-hud {
 
     position: fixed;
 
     inset: 0;
 
-    z-index: 10;
+    z-index: 20;
 
     pointer-events: none;
 
-}
-
-/* характеристики */
-
-.hudBox {
-
-    position: absolute;
-
-    left: 15px;
-
-    bottom: 18px;
-
-    padding: 9px 12px;
-
-    min-width: 125px;
-
-    background:
-
-        rgba(8, 12, 9, 0.72);
-
-    border:
-
-        1px solid
-
-        rgba(170, 185, 155, 0.22);
-
-    backdrop-filter:
-
-        blur(3px);
-
-    font-size: 11px;
-
-    line-height: 1.8;
-
-    letter-spacing: 1px;
+    color: #d0d5c9;
 
     text-shadow:
 
-        0 1px 3px #000;
+        0 2px 5px #000,
+
+        0 0 3px #000;
 
 }
 
-/* название локации */
+/* ==============================
 
-.location {
+   НАЗВАНИЕ
+
+============================== */
+
+.stalker-title {
 
     position: absolute;
 
-    left: 50%;
+    left: 18px;
 
-    top: 20px;
+    top: 18px;
 
-    transform:
+    font-size: 15px;
 
-        translateX(-50%);
+    letter-spacing: 2px;
 
-    font-size: 11px;
+    line-height: 1.5;
 
-    letter-spacing: 4px;
-
-    color:
-
-        rgba(215, 220, 200, 0.75);
-
-    text-shadow:
-
-        0 1px 5px #000;
+    opacity: 0.9;
 
 }
 
-/* оружие */
+/* ==============================
 
-.weapon {
+   ЗДОРОВЬЕ
+
+============================== */
+
+.stalker-health {
 
     position: absolute;
 
-    right: 18px;
+    left: 18px;
 
     bottom: 20px;
-
-    padding: 9px 12px;
-
-    min-width: 115px;
-
-    background:
-
-        rgba(8, 12, 9, 0.72);
-
-    border:
-
-        1px solid
-
-        rgba(170, 185, 155, 0.22);
-
-    text-align: right;
 
     font-size: 12px;
 
     letter-spacing: 1px;
 
-    text-shadow:
-
-        0 1px 3px #000;
-
 }
 
-.weapon span {
+/* ==============================
 
-    display: block;
+   ПЕРЕКРЕСТИЕ
 
-    margin-top: 3px;
+============================== */
 
-    font-size: 15px;
-
-    color:
-
-        #d0d6c7;
-
-}
-
-/* =========================================
-
-   МОБИЛЬНЫЙ ДЖОЙСТИК
-
-========================================= */
-
-#joystick {
-
-    position: fixed;
-
-    left: 25px;
-
-    bottom: 105px;
-
-    width: 115px;
-
-    height: 115px;
-
-    z-index: 30;
-
-    border-radius: 50%;
-
-    background:
-
-        rgba(25, 31, 25, 0.38);
-
-    border:
-
-        1px solid
-
-        rgba(190, 200, 180, 0.18);
-
-    box-shadow:
-
-        inset 0 0 20px
-
-        rgba(0, 0, 0, 0.25);
-
-    touch-action: none;
-
-}
-
-#joystickKnob {
+.stalker-crosshair {
 
     position: absolute;
 
@@ -290,19 +144,37 @@ body {
 
     top: 50%;
 
-    width: 48px;
-
-    height: 48px;
-
     transform:
 
         translate(-50%, -50%);
 
-    border-radius: 50%;
+    font-size: 18px;
+
+    opacity: 0.7;
+
+}
+
+/* ==============================
+
+   МИНИ-КАРТА
+
+============================== */
+
+.stalker-map {
+
+    position: absolute;
+
+    right: 18px;
+
+    top: 18px;
+
+    width: 120px;
+
+    height: 120px;
 
     background:
 
-        rgba(150, 160, 140, 0.28);
+        rgba(12, 17, 14, 0.72);
 
     border:
 
@@ -312,27 +184,139 @@ body {
 
     box-shadow:
 
-        0 0 12px
+        0 0 15px
 
-        rgba(0, 0, 0, 0.35);
+        rgba(0, 0, 0, 0.6);
 
 }
 
-/* =========================================
+.stalker-map-road {
 
-   КНОПКИ
+    position: absolute;
 
-========================================= */
+    left: 53px;
 
-.controlButton {
+    top: 0;
+
+    width: 14px;
+
+    height: 100%;
+
+    background:
+
+        rgba(130, 120, 95, 0.35);
+
+}
+
+.stalker-map-camp {
+
+    position: absolute;
+
+    left: 46px;
+
+    top: 46px;
+
+    width: 28px;
+
+    height: 28px;
+
+    border-radius: 50%;
+
+    background:
+
+        rgba(225, 110, 40, 0.8);
+
+    box-shadow:
+
+        0 0 12px
+
+        rgba(255, 120, 40, 0.7);
+
+}
+
+.stalker-map-player {
+
+    position: absolute;
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    box-shadow:
+
+        0 0 7px #fff;
+
+}
+
+/* ==============================
+
+   ДИАЛОГ
+
+============================== */
+
+.stalker-dialogue {
 
     position: fixed;
 
+    left: 50%;
+
+    bottom: 85px;
+
+    transform:
+
+        translateX(-50%);
+
+    max-width: 80%;
+
+    padding:
+
+        10px 15px;
+
+    background:
+
+        rgba(5, 8, 6, 0.9);
+
+    border:
+
+        1px solid
+
+        rgba(200, 210, 190, 0.25);
+
+    color: #d0d5c9;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    text-align: center;
+
+    display: none;
+
     z-index: 30;
 
-    width: 58px;
+}
 
-    height: 58px;
+/* ==============================
+
+   ДЖОЙСТИК
+
+============================== */
+
+.stalker-joystick {
+
+    position: fixed;
+
+    left: 25px;
+
+    bottom: 35px;
+
+    width: 115px;
+
+    height: 115px;
 
     border-radius: 50%;
 
@@ -340,235 +324,171 @@ body {
 
         1px solid
 
-        rgba(190, 200, 180, 0.28);
+        rgba(210, 220, 200, 0.25);
 
     background:
 
-        rgba(15, 20, 16, 0.68);
+        rgba(10, 14, 11, 0.35);
 
-    color:
-
-        #cbd3c0;
-
-    font-size: 21px;
-
-    box-shadow:
-
-        0 3px 12px
-
-        rgba(0, 0, 0, 0.35);
+    z-index: 40;
 
     touch-action: none;
 
-    -webkit-tap-highlight-color:
+}
 
-        transparent;
+.stalker-stick {
+
+    position: absolute;
+
+    left: 35px;
+
+    top: 35px;
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 50%;
+
+    background:
+
+        rgba(180, 190, 175, 0.3);
+
+    border:
+
+        1px solid
+
+        rgba(220, 225, 215, 0.3);
 
 }
 
-/* стрельба */
+/* ==============================
 
-#shootButton {
+   КНОПКА E
+
+============================== */
+
+.stalker-interact {
+
+    position: fixed;
 
     right: 25px;
 
     bottom: 35px;
 
-    width: 72px;
+    width: 55px;
 
-    height: 72px;
+    height: 55px;
 
-    background:
+    border-radius: 50%;
 
-        rgba(55, 25, 20, 0.72);
+    border:
 
-    font-size: 27px;
+        1px solid
 
-}
-
-/* осмотр */
-
-#lookButton {
-
-    right: 110px;
-
-    bottom: 45px;
-
-}
-
-/* ПДА */
-
-#pdaButton {
-
-    right: 110px;
-    bottom: 115px;
-} 
-
-/* =========================================
-
-   НАЖАТИЕ
-
-========================================= */
-
-.controlButton:active {
-
-    transform:
-
-        scale(0.92);
+        rgba(210, 220, 200, 0.35);
 
     background:
 
-        rgba(70, 80, 65, 0.85);
+        rgba(10, 14, 11, 0.7);
+
+    color: #d8ddd2;
+
+    font-size: 18px;
+
+    z-index: 40;
+
+    pointer-events: auto;
 
 }
 
-#shootButton:active {
+/* ==============================
 
-    background:
+   МОБИЛЬНЫЕ УСТРОЙСТВА
 
-        rgba(110, 40, 25, 0.9);
+============================== */
 
-}
+max-width: 700px {
 
-/* =========================================
+    .stalker-title {
 
-   ДЛЯ ПК
+        left: 12px;
 
-========================================= */
+        top: 12px;
 
-min-width: 800px {
-
-    #joystick {
-
-        opacity: 0.25;
+        font-size: 12px;
 
     }
 
-    #joystick:hover {
+    .stalker-map {
 
-        opacity: 0.8;
+        right: 12px;
 
-    }
+        top: 12px;
 
-    .controlButton {
+        width: 95px;
 
-        opacity: 0.5;
-
-    }
-
-    .controlButton:hover {
-
-        opacity: 1;
+        height: 95px;
 
     }
 
-}
+    .stalker-map-road {
 
-/* =========================================
-
-   МАЛЕНЬКИЕ ЭКРАНЫ
-
-========================================= */
-
-max-width: 430px {
-
-    #joystick {
-
-        left: 18px;
-
-        bottom: 95px;
-
-        width: 105px;
-
-        height: 105px;
+        left: 42px;
 
     }
 
-    #joystickKnob {
+    .stalker-map-camp {
 
-        width: 44px;
+        left: 35px;
 
-        height: 44px;
+        top: 35px;
+
+        width: 25px;
+
+        height: 25px;
 
     }
 
-    #shootButton {
+    .stalker-health {
 
-        right: 18px;
+        left: 12px;
+
+        bottom: 15px;
+
+    }
+
+    .stalker-joystick {
+
+        left: 20px;
 
         bottom: 25px;
 
-        width: 68px;
-
-        height: 68px;
-
     }
 
-    #lookButton {
+    .stalker-interact {
 
-        right: 95px;
+        right: 20px;
 
-        bottom: 32px;
-
-    }
-
-    #pdaButton {
-
-        right: 95px;
-
-        bottom: 105px;
-
-    }
-
-    .hudBox {
-
-        left: 10px;
-
-        bottom: 10px;
-
-        font-size: 10px;
-
-    }
-
-    .weapon {
-
-        right: 10px;
-
-        bottom: 10px;
+        bottom: 25px;
 
     }
 
 }
 
-/* =========================================
+/* ==============================
 
-   СКРЫТЬ СИСТЕМНЫЙ КУРСОР
+   ЭКРАН СМЕРТИ / ЗАТЕМНЕНИЕ
 
-========================================= */
+============================== */
 
-body {
-
-    cursor:
-
-        default;
-
-}
-
-/* =========================================
-
-   ЛЁГКАЯ ВИНЬЕТКА
-
-========================================= */
-
-body::after {
-
-    content: "";
+.stalker-vignette {
 
     position: fixed;
 
     inset: 0;
 
-    z-index: 5;
+    z-index: 15;
 
     pointer-events: none;
 
@@ -580,46 +500,8 @@ body::after {
 
             transparent 45%,
 
-            rgba(0, 0, 0, 0.38) 100%
+            rgba(0, 0, 0, 0.55) 100%
 
         );
 
 }
-
-/* =========================================
-
-   ЭФФЕКТ СТАРОГО МОНИТОРА
-
-========================================= */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 6;
-
-    pointer-events: none;
-
-    opacity: 0.035;
-
-    background:
-
-        repeating-linear-gradient(
-
-            0deg,
-
-            rgba(255,255,255,0.4) 0px,
-
-            rgba(255,255,255,0.4) 1px,
-
-            transparent 1px,
-
-            transparent 4px
-
-        );
-
-} 11

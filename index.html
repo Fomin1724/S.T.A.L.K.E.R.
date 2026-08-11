@@ -10,13 +10,27 @@
 
         name="viewport"
 
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        content="width=device-width,
+
+        initial-scale=1.0,
+
+        maximum-scale=1.0,
+
+        user-scalable=no"
 
     >
+
+    <meta name="theme-color" content="#080b09">
 
     <title>STALKER — ЗОНА</title>
 
     <style>
+
+        * {
+
+            box-sizing: border-box;
+
+        }
 
         html,
 
@@ -40,6 +54,12 @@
 
             font-family: Arial, sans-serif;
 
+            user-select: none;
+
+            -webkit-user-select: none;
+
+            touch-action: none;
+
         }
 
         canvas {
@@ -58,19 +78,25 @@
 
 <body>
 
-    <!--
+    <!-- =====================================================
 
-        ВАЖНО:
+         THREE.JS
 
-        Three.js загружается ПЕРЕД game.js
+         Локальная версия 0.149.0
 
-    -->
+         Файл лежит рядом с index.html
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+    ====================================================== -->
 
-    <!-- Наш код игры -->
+    <script src="./three.min.js"></script>
 
-    <script src="game.js"></script>
+    <!-- =====================================================
+
+         ИГРОВОЙ КОД
+
+    ====================================================== -->
+
+    <script src="./game.js"></script>
 
 </body>
 

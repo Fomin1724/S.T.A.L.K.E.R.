@@ -1,0 +1,625 @@
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+html,
+
+body {
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #080b09;
+
+    font-family:
+
+        Arial,
+
+        sans-serif;
+
+    color: #c8d0bd;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    touch-action: none;
+
+}
+
+/* =========================================
+
+   3D ИГРА
+
+========================================= */
+
+#game {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+#game canvas {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+/* =========================================
+
+   ПРИЦЕЛ
+
+========================================= */
+
+#crosshair {
+
+    position: fixed;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform:
+
+        translate(-50%, -50%);
+
+    z-index: 20;
+
+    color:
+
+        rgba(210, 220, 200, 0.75);
+
+    font-size: 19px;
+
+    font-family:
+
+        monospace;
+
+    pointer-events: none;
+
+    text-shadow:
+
+        0 0 4px #000;
+
+}
+
+/* =========================================
+
+   HUD
+
+========================================= */
+
+#hud {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10;
+
+    pointer-events: none;
+
+}
+
+/* характеристики */
+
+.hudBox {
+
+    position: absolute;
+
+    left: 15px;
+
+    bottom: 18px;
+
+    padding: 9px 12px;
+
+    min-width: 125px;
+
+    background:
+
+        rgba(8, 12, 9, 0.72);
+
+    border:
+
+        1px solid
+
+        rgba(170, 185, 155, 0.22);
+
+    backdrop-filter:
+
+        blur(3px);
+
+    font-size: 11px;
+
+    line-height: 1.8;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+
+        0 1px 3px #000;
+
+}
+
+/* название локации */
+
+.location {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 20px;
+
+    transform:
+
+        translateX(-50%);
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    color:
+
+        rgba(215, 220, 200, 0.75);
+
+    text-shadow:
+
+        0 1px 5px #000;
+
+}
+
+/* оружие */
+
+.weapon {
+
+    position: absolute;
+
+    right: 18px;
+
+    bottom: 20px;
+
+    padding: 9px 12px;
+
+    min-width: 115px;
+
+    background:
+
+        rgba(8, 12, 9, 0.72);
+
+    border:
+
+        1px solid
+
+        rgba(170, 185, 155, 0.22);
+
+    text-align: right;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+
+        0 1px 3px #000;
+
+}
+
+.weapon span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 15px;
+
+    color:
+
+        #d0d6c7;
+
+}
+
+/* =========================================
+
+   МОБИЛЬНЫЙ ДЖОЙСТИК
+
+========================================= */
+
+#joystick {
+
+    position: fixed;
+
+    left: 25px;
+
+    bottom: 105px;
+
+    width: 115px;
+
+    height: 115px;
+
+    z-index: 30;
+
+    border-radius: 50%;
+
+    background:
+
+        rgba(25, 31, 25, 0.38);
+
+    border:
+
+        1px solid
+
+        rgba(190, 200, 180, 0.18);
+
+    box-shadow:
+
+        inset 0 0 20px
+
+        rgba(0, 0, 0, 0.25);
+
+    touch-action: none;
+
+}
+
+#joystickKnob {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: 48px;
+
+    height: 48px;
+
+    transform:
+
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+
+        rgba(150, 160, 140, 0.28);
+
+    border:
+
+        1px solid
+
+        rgba(210, 220, 200, 0.3);
+
+    box-shadow:
+
+        0 0 12px
+
+        rgba(0, 0, 0, 0.35);
+
+}
+
+/* =========================================
+
+   КНОПКИ
+
+========================================= */
+
+.controlButton {
+
+    position: fixed;
+
+    z-index: 30;
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 50%;
+
+    border:
+
+        1px solid
+
+        rgba(190, 200, 180, 0.28);
+
+    background:
+
+        rgba(15, 20, 16, 0.68);
+
+    color:
+
+        #cbd3c0;
+
+    font-size: 21px;
+
+    box-shadow:
+
+        0 3px 12px
+
+        rgba(0, 0, 0, 0.35);
+
+    touch-action: none;
+
+    -webkit-tap-highlight-color:
+
+        transparent;
+
+}
+
+/* стрельба */
+
+#shootButton {
+
+    right: 25px;
+
+    bottom: 35px;
+
+    width: 72px;
+
+    height: 72px;
+
+    background:
+
+        rgba(55, 25, 20, 0.72);
+
+    font-size: 27px;
+
+}
+
+/* осмотр */
+
+#lookButton {
+
+    right: 110px;
+
+    bottom: 45px;
+
+}
+
+/* ПДА */
+
+#pdaButton {
+
+    right: 110px;
+    bottom: 115px;
+} 
+
+/* =========================================
+
+   НАЖАТИЕ
+
+========================================= */
+
+.controlButton:active {
+
+    transform:
+
+        scale(0.92);
+
+    background:
+
+        rgba(70, 80, 65, 0.85);
+
+}
+
+#shootButton:active {
+
+    background:
+
+        rgba(110, 40, 25, 0.9);
+
+}
+
+/* =========================================
+
+   ДЛЯ ПК
+
+========================================= */
+
+min-width: 800px {
+
+    #joystick {
+
+        opacity: 0.25;
+
+    }
+
+    #joystick:hover {
+
+        opacity: 0.8;
+
+    }
+
+    .controlButton {
+
+        opacity: 0.5;
+
+    }
+
+    .controlButton:hover {
+
+        opacity: 1;
+
+    }
+
+}
+
+/* =========================================
+
+   МАЛЕНЬКИЕ ЭКРАНЫ
+
+========================================= */
+
+max-width: 430px {
+
+    #joystick {
+
+        left: 18px;
+
+        bottom: 95px;
+
+        width: 105px;
+
+        height: 105px;
+
+    }
+
+    #joystickKnob {
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+    #shootButton {
+
+        right: 18px;
+
+        bottom: 25px;
+
+        width: 68px;
+
+        height: 68px;
+
+    }
+
+    #lookButton {
+
+        right: 95px;
+
+        bottom: 32px;
+
+    }
+
+    #pdaButton {
+
+        right: 95px;
+
+        bottom: 105px;
+
+    }
+
+    .hudBox {
+
+        left: 10px;
+
+        bottom: 10px;
+
+        font-size: 10px;
+
+    }
+
+    .weapon {
+
+        right: 10px;
+
+        bottom: 10px;
+
+    }
+
+}
+
+/* =========================================
+
+   СКРЫТЬ СИСТЕМНЫЙ КУРСОР
+
+========================================= */
+
+body {
+
+    cursor:
+
+        default;
+
+}
+
+/* =========================================
+
+   ЛЁГКАЯ ВИНЬЕТКА
+
+========================================= */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    background:
+
+        radial-gradient(
+
+            ellipse at center,
+
+            transparent 45%,
+
+            rgba(0, 0, 0, 0.38) 100%
+
+        );
+
+}
+
+/* =========================================
+
+   ЭФФЕКТ СТАРОГО МОНИТОРА
+
+========================================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 6;
+
+    pointer-events: none;
+
+    opacity: 0.035;
+
+    background:
+
+        repeating-linear-gradient(
+
+            0deg,
+
+            rgba(255,255,255,0.4) 0px,
+
+            rgba(255,255,255,0.4) 1px,
+
+            transparent 1px,
+
+            transparent 4px
+
+        );
+
+} 11

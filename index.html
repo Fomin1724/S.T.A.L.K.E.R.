@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+
+        name="viewport"
+
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+
+    >
+
+    <title>STALKER: Буранное</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- ИГРА -->
+
+    <div id="game"></div>
+
+    <!-- ПРИЦЕЛ -->
+
+    <div id="crosshair">
+
+        +
+
+    </div>
+
+    <!-- HUD -->
+
+    <div id="hud">
+
+        <div class="hudBox">
+
+            <div>
+
+                ❤️ <span id="health">100</span>
+
+            </div>
+
+            <div>
+
+                🔋 <span id="stamina">100</span>
+
+            </div>
+
+            <div>
+
+                ☢️ <span id="radiation">0</span>
+
+            </div>
+
+        </div>
+
+        <div class="location">
+
+            КОРДОН
+
+        </div>
+
+        <div class="weapon">
+
+            🔫 ПМ
+
+            <span id="ammo">
+
+                8 / 24
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
+
+    <div id="joystick">
+
+        <div id="joystickKnob"></div>
+
+    </div>
+
+    <button
+
+        id="lookButton"
+
+        class="controlButton">
+
+        👁️
+
+    </button>
+
+    <button
+
+        id="shootButton"
+
+        class="controlButton">
+
+        🔫
+
+    </button>
+
+    <button
+
+        id="pdaButton"
+
+        class="controlButton">
+
+        📟
+
+    </button>
+
+    <!-- Three.js -->
+
+    <script
+
+        src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js">
+
+    </script>
+
+    <!-- ИГРОВОЙ КОД -->
+
+    <script src="game.js"></script>
+
+</body>
+
+</html>

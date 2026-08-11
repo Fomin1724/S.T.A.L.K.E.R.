@@ -14,119 +14,61 @@
 
     >
 
-    <title>STALKER: Буранное</title>
+    <title>STALKER — ЗОНА</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+
+        html,
+
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            overflow: hidden;
+
+            background: #080b09;
+
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+        }
+
+        canvas {
+
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-    <!-- ИГРА -->
+    <!--
 
-    <div id="game"></div>
+        ВАЖНО:
 
-    <!-- ПРИЦЕЛ -->
+        Three.js загружается ПЕРЕД game.js
 
-    <div id="crosshair">
+    -->
 
-        +
+    <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
 
-    </div>
-
-    <!-- HUD -->
-
-    <div id="hud">
-
-        <div class="hudBox">
-
-            <div>
-
-                ❤️ <span id="health">100</span>
-
-            </div>
-
-            <div>
-
-                🔋 <span id="stamina">100</span>
-
-            </div>
-
-            <div>
-
-                ☢️ <span id="radiation">0</span>
-
-            </div>
-
-        </div>
-
-        <div class="location">
-
-            КОРДОН
-
-        </div>
-
-        <div class="weapon">
-
-            🔫 ПМ
-
-            <span id="ammo">
-
-                8 / 24
-
-            </span>
-
-        </div>
-
-    </div>
-
-    <!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
-
-    <div id="joystick">
-
-        <div id="joystickKnob"></div>
-
-    </div>
-
-    <button
-
-        id="lookButton"
-
-        class="controlButton">
-
-        👁️
-
-    </button>
-
-    <button
-
-        id="shootButton"
-
-        class="controlButton">
-
-        🔫
-
-    </button>
-
-    <button
-
-        id="pdaButton"
-
-        class="controlButton">
-
-        📟
-
-    </button>
-
-    <!-- Three.js -->
-
-    <script
-
-        src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js">
-
-    </script>
-
-    <!-- ИГРОВОЙ КОД -->
+    <!-- Наш код игры -->
 
     <script src="game.js"></script>
 
